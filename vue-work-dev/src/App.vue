@@ -46,6 +46,7 @@ const arrayReady = ref([
 const selected = ref('')
 const selected2 = ref([])
 const text = ref('')
+
 const picked = ref('')
 
 const completed = computed(() => {
@@ -55,12 +56,19 @@ const completed = computed(() => {
 const unCompleted = computed(() => {
   return array.value.filter(item => !item.done)
 })
+const arrayTask = ref([])
 
+const addTask = () => {
+  array.value.push({name: textTask.value, done: false});
+  textTask.value = ''
+}
+const textTask = ref('')
 
 </script>
 
 <template>
   <header>
+    <h1>Первый блок</h1>
     <div>
       <h2>Задача 1</h2>
       <label :for="i" v-for="(item, i) in unCompleted" :key="item">
@@ -104,13 +112,40 @@ const unCompleted = computed(() => {
   </header>
 
   <main>
-
+  <h1>Второй блок</h1>
+    <form @submit.prevent="addTask()">
+      <input type="text" placeholder="Введите текст задачи" v-model="textTask">
+      <button>Добавить</button>
+    </form>
+    <ul>
+      <h3 v-if="unCompleted.length">Надо сделать</h3>
+      <h2 v-else>Все выполнил!</h2>
+      <li v-for="(item, i) in unCompleted" :key="item">
+        <label>
+          <input type="checkbox" v-model="item.done">
+          {{ item.name}}
+        </label>
+      </li>
+    </ul>
+    <ul>
+      <h2 v-if="unCompleted.length === 0">хорошо потрудился</h2>
+      <h2 v-else-if="completed.length >= 1">Пошло дело!</h2>
+      <h3 v-else >Пусто, простой!</h3>
+      <li v-for="(item, i) in completed" :key="item">
+        <label>
+          <input type="checkbox" v-model="item.done">
+          {{ item.name}}
+        </label>
+      </li>
+    </ul>
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+header, main {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #eee;
 }
 
 select {
@@ -123,13 +158,6 @@ h2 {
 
 h2 {
   margin-bottom: 10px;
-}
-
-main {
-  margin-top: 100px;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: inherit;
 }
 
 .logo {
