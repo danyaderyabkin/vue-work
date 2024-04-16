@@ -4,7 +4,7 @@ import {computed, ref} from "vue";
 const array = ref([
   {
     name: 'Задача по умолчанию',
-  done: false
+    done: false
   },
   {
     name: 'Вторая по умолчанию',
@@ -23,7 +23,7 @@ const array = ref([
 const arrayRadio = ref([
   {
     name: 'Задача по умолчанию',
-  done: false
+    done: false
   },
   {
     name: 'Вторая по умолчанию',
@@ -40,7 +40,7 @@ const arrayRadio = ref([
 ]);
 
 const arrayReady = ref([
-    '',
+  '',
 ]);
 
 const selected = ref('')
@@ -63,9 +63,9 @@ const unCompleted = computed(() => {
   <header>
     <div>
       <h2>Задача 1</h2>
-      <label v-for="(item, i) in unCompleted" :key="i">
+      <label :for="i" v-for="(item, i) in unCompleted" :key="item">
         {{ item.name }}
-        <input type="checkbox" v-model="item.done">
+        <input :id="i" type="checkbox" v-model="item.done">
       </label>
     </div>
     <h3>Выполненные</h3>
@@ -73,11 +73,11 @@ const unCompleted = computed(() => {
       {{ item.name }}
     </div>
     <h2>Задача 2</h2>
-    <select v-model="selected" >
+    <select v-model="selected">
       <option disabled value="">выбрать</option>
-      <option  v-for="(item, i) in array" :key="i">{{item.name}}</option>
+      <option v-for="(item, i) in array" :key="i">{{ item.name }}</option>
     </select>
-    <h3>{{selected}}</h3>
+    <h3>{{ selected }}</h3>
     <div>
       <h2>Задача 3</h2>
 
@@ -85,11 +85,11 @@ const unCompleted = computed(() => {
     <input type="text" v-model="text">
     <h3>Вывод: {{ text }}</h3>
 
-    <h2>Задача 4  </h2>
+    <h2>Задача 4 </h2>
     <div v-for="(item, i) in arrayRadio" :key="i">
       <label :for="i">
-        {{item.name}}
-        <input type="radio" :id="i" :value="item" v-model="picked" />
+        {{ item.name }}
+        <input type="radio" :id="i" :value="item" v-model="picked"/>
       </label>
     </div>
     <div>Выбрано: {{ picked.name }}</div>
@@ -100,7 +100,7 @@ const unCompleted = computed(() => {
       <option>B</option>
       <option>C</option>
     </select>
-    <h3>{{selected2}}</h3>
+    <h3>{{ selected2 }}</h3>
   </header>
 
   <main>
@@ -112,14 +112,16 @@ const unCompleted = computed(() => {
 header {
   line-height: 1.5;
 }
+
 select {
   min-width: 200px;
 }
 
-h2  {
+h2 {
   margin-bottom: 20px;
 }
-h2  {
+
+h2 {
   margin-bottom: 10px;
 }
 
@@ -140,11 +142,7 @@ label {
 }
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+
 
   .logo {
     margin: 0 2rem 0 0;
